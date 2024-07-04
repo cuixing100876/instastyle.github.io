@@ -25,6 +25,19 @@
     }
   </style>
 
+  <style>
+    .carousel-video-item video {
+      width: 100%;
+      height: auto;
+      max-height: 500px; /* Adjust the max height as needed */
+      object-fit: cover;
+    }
+    .your-carousel-video {
+      max-width: 800px; /* Adjust the width as needed */
+      margin: auto;
+    }
+  </style>
+
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -146,30 +159,54 @@
 </section>
 <!--/Teaser-->
 
-<!--Teaser video-->
-<div class="your-carousel">
-  <div class="carousel-item">
-          <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser-video.mp4"
-                type="video/mp4">
-      </video>
-  </div>
+<!--&lt;!&ndash;Teaser video&ndash;&gt;-->
+<!--<div class="your-carousel">-->
+<!--  <div class="carousel-item">-->
+<!--          <video id="teaser" autoplay muted loop playsinline height="100%">-->
+<!--        <source src="./static/videos/teaser-video.mp4"-->
+<!--                type="video/mp4">-->
+<!--      </video>-->
+<!--  </div>-->
 
-  <div class="carousel-item">
-          <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser-video-2.mp4"
-                type="video/mp4">
-      </video>
-  </div>
+<!--  <div class="carousel-item">-->
+<!--          <video id="teaser" autoplay muted loop playsinline height="100%">-->
+<!--        <source src="./static/videos/teaser-video-2.mp4"-->
+<!--                type="video/mp4">-->
+<!--      </video>-->
+<!--  </div>-->
 
-  <div class="carousel-item">
-          <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser-video-3.mp4"
-                type="video/mp4">
-      </video>
+<!--  <div class="carousel-item">-->
+<!--          <video id="teaser" autoplay muted loop playsinline height="100%">-->
+<!--        <source src="./static/videos/teaser-video-3.mp4"-->
+<!--                type="video/mp4">-->
+<!--      </video>-->
+<!--  </div>-->
+<!--</div>-->
+<!--&lt;!&ndash;/Teaser video&ndash;&gt;-->
+
+
+<!-- Carousel Section Start -->
+<div class="your-carousel-video">
+  <div class="carousel-video-item">
+    <video>
+      <source src="./static/videos/teaser-video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <div class="carousel-video-item">
+    <video>
+      <source src="./static/videos/teaser-video-2.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <div class="carousel-video-item">
+    <video>
+      <source src="./static/videos/teaser-video-3.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   </div>
 </div>
-<!--/Teaser video-->
+<!-- Carousel Section End -->
 
 <!-- Abstract. -->
 <section class="section">
@@ -356,11 +393,42 @@
       dots: true,
       arrows: true,
       autoplay: true,
-      autoplaySpeed: 7000,
+      autoplaySpeed: 4000,
     });
   });
 </script>
 
+<script>
+  $(document).ready(function(){
+    $('.your-carousel-video').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      infinite: true,
+      dots: true,
+      arrows: true,
+      autoplay: false, // Turn off slick's autoplay, we will handle it manually
+    });
+
+    // Function to play the current video
+    function playCurrentVideo() {
+      var currentVideo = $('.your-carousel-video .slick-current').find('video').get(0);
+      if (currentVideo) {
+        currentVideo.play();
+        currentVideo.onended = function() {
+          $('.your-carousel-video').slick('slickNext');
+        };
+      }
+    }
+
+    // Initialize the first video
+    playCurrentVideo();
+
+    // When the slide changes, play the new video
+    $('.your-carousel-video').on('afterChange', function(event, slick, currentSlide){
+      playCurrentVideo();
+    });
+  });
+</script>
 
 </body>
 </html>
