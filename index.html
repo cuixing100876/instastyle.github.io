@@ -188,19 +188,19 @@
 <!-- Carousel Section Start -->
 <div class="your-carousel-video">
   <div class="carousel-video-item">
-    <video>
+    <video id="video1" muted>
       <source src="./static/videos/teaser-video.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </div>
   <div class="carousel-video-item">
-    <video>
+    <video id="video2" muted>
       <source src="./static/videos/teaser-video-2.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </div>
   <div class="carousel-video-item">
-    <video>
+    <video id="video3" muted>
       <source src="./static/videos/teaser-video-3.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
@@ -419,14 +419,40 @@
         };
       }
     }
-
-    // Initialize the first video
-    playCurrentVideo();
-
-    // When the slide changes, play the new video
-    $('.your-carousel-video').on('afterChange', function(event, slick, currentSlide){
+    //     // Play the first video explicitly
+    // setTimeout(function() {
+    //   playCurrentVideo();
+    // }, 500); // Slight delay to ensure everything is loaded
+    //
+    // // Initialize the first video
+    // // playCurrentVideo();
+    // // $('.your-carousel-video').on('init', function(event, slick){
+    // //   playCurrentVideo();
+    // // });
+    //
+    // // When the slide changes, play the new video
+    // $('.your-carousel-video').on('afterChange', function(event, slick, currentSlide){
+    //   playCurrentVideo();
+    //       // Trigger slick initialization
+    // $('.your-carousel-video').slick('setPosition');
+    // });
+    // When the carousel is initialized, play the first video
+    $('.your-carousel').on('init', function(event, slick){
       playCurrentVideo();
     });
+
+    // When the slide changes, play the new video
+    $('.your-carousel').on('afterChange', function(event, slick, currentSlide){
+      playCurrentVideo();
+    });
+
+    // Trigger slick initialization
+    $('.your-carousel').slick('setPosition');
+
+    // Play the first video explicitly
+    playCurrentVideo();
+
+
   });
 </script>
 
